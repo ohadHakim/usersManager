@@ -1,6 +1,10 @@
 import Status from "../Status/status";
+import { IUser } from "../Users/Users";
 
-function Table() {
+interface Props {
+  users: Array<IUser>;
+}
+function Table(props: Props) {
   return (
     <table className="table table-hover">
       <thead>
@@ -12,16 +16,21 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        <tr className="bg-light">
-          <td></td>
-          <Status />
-          <td></td>
-          <td>
-            <button className="btn btn-default">
-              <i className="bi-trash3"></i>
-            </button>
-          </td>
-        </tr>
+        {props.users.map((user) => (
+          <tr key={user._id} className="bg-light">
+            <td>{user.fullName}</td>
+
+            <td>
+              <Status type={user.status} />
+            </td>
+            <td>{user.email}</td>
+            <td>
+              <button className="btn btn-default">
+                <i className="bi-trash3"></i>
+              </button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );

@@ -1,7 +1,9 @@
 import React from "react";
 import { text } from "stream/consumers";
 
-interface HeaderProps {}
+interface HeaderProps {
+  addUser: Function;
+}
 
 interface HeaderState {
   fullName: string;
@@ -9,7 +11,7 @@ interface HeaderState {
 }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
-  constructor(props: {}) {
+  constructor(props: HeaderProps) {
     super(props);
     this.state = {
       fullName: "",
@@ -27,6 +29,18 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     });
   };
 
+  addUser = () => {
+    this.props.addUser({
+      fullName: this.state.fullName,
+      email: this.state.email,
+      status: "active",
+    });
+    this.setState(() => ({
+      fullName: "",
+      email: "",
+    }));
+  };
+
   render() {
     return (
       <div className="d-flex align-items-center p-3 my-4 bg-light">
@@ -36,8 +50,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             value={this.state.fullName}
             onChange={(e) => this.handleInputChange(e, "fullName")}
             type="text"
-            placeholder="Name"
-            className="form-control"
+            placeholder="Full Name"
+            className="form-control m-1"
           />
 
           <input
@@ -45,10 +59,15 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             onChange={(e) => this.handleInputChange(e, "email")}
             type="text"
             placeholder="Email"
-            className="form-control"
+            className="form-control m-1"
           />
 
-          <button className="btn btn-info text-white">Add</button>
+          <button
+            onClick={this.addUser}
+            className="btn btn-info text-whites m-1"
+          >
+            Add
+          </button>
         </div>
       </div>
     );

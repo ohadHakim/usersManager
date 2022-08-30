@@ -15,6 +15,7 @@ export interface IUser {
 interface UsersState {
   users: Array<IUser>;
   addSuccess: boolean;
+  deleted: boolean;
 }
 
 class Users extends React.Component<{}, UsersState> {
@@ -23,6 +24,7 @@ class Users extends React.Component<{}, UsersState> {
     this.state = {
       users: [],
       addSuccess: false,
+      deleted: false,
     };
   }
   componentDidMount() {
@@ -72,7 +74,13 @@ class Users extends React.Component<{}, UsersState> {
         );
         this.setState(() => ({
           users: updated,
+          deleted: true,
         }));
+        setTimeout(() => {
+          this.setState(() => ({
+            deleted: false,
+          }));
+        }, 2000);
       });
   };
 
@@ -85,6 +93,9 @@ class Users extends React.Component<{}, UsersState> {
         )}
         {this.state.addSuccess && (
           <Message type="success" children="New user was added" />
+        )}
+        {this.state.deleted && (
+          <Message type="danger" children="User was deleted!" />
         )}
         <Table users={this.state.users} deleteUser={this.deleteUser} />
       </div>

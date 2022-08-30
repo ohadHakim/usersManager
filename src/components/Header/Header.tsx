@@ -8,6 +8,8 @@ interface HeaderProps {
 interface HeaderState {
   fullName: string;
   email: string;
+  status: string;
+  statusOptions: Array<string>;
 }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
@@ -16,6 +18,8 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.state = {
       fullName: "",
       email: "",
+      status: "active",
+      statusOptions: ["Active", "Expired", "Banned"],
     };
   }
 
@@ -29,15 +33,23 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     });
   };
 
+  handleStatusSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({
+      ...this.state,
+      status: event.target.value,
+    });
+  };
+
   addUser = () => {
     this.props.addUser({
       fullName: this.state.fullName,
       email: this.state.email,
-      status: "active",
+      status: this.state.status,
     });
     this.setState(() => ({
       fullName: "",
       email: "",
+      status: "",
     }));
   };
 
@@ -61,6 +73,17 @@ class Header extends React.Component<HeaderProps, HeaderState> {
             placeholder="Email"
             className="form-control m-1"
           />
+          <select
+            onChange={(e) => this.handleStatusSelect(e)}
+            className="form-select m-1"
+            value={this.state.status}
+          >
+            {this.state.statusOptions.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
 
           <button
             onClick={this.addUser}

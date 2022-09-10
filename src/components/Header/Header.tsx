@@ -1,5 +1,4 @@
 import React from "react";
-import { text } from "stream/consumers";
 
 interface HeaderProps {
   addUser: Function;
@@ -18,7 +17,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
     this.state = {
       fullName: "",
       email: "",
-      status: "active",
+      status: "Active",
       statusOptions: ["Active", "Expired", "Banned"],
     };
   }

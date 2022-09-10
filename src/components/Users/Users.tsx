@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import Message from "../Message/Message";
 import Table from "../Table/Table";
 
-export type StatusType = "active" | "expired" | "banned";
+export type StatusType = "Active" | "Expired" | "Banned";
 
 export interface IUser {
   fullName: string;

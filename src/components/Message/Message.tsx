@@ -20,7 +20,7 @@ function Message(props: Props) {
     }
   }
   return (
-    <div className="alert alert-warning" role="alert">
+    <div className={`alert ${getAlertCss()}`} role="alert">
       {props.children}
     </div>
   );
